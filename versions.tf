@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.9.5"
   required_providers {
     oci = {
-      version = "6.8.0"
+      version = ">= 6.8.0"
     }
   }
 }

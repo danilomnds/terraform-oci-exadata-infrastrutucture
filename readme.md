@@ -100,10 +100,9 @@ output "exadata-id" {
 | maintenance_window | a block as defined below | `object({})` | n/a | No |
 | shape | the shape of the cloud exadata infrastructure resource | `string` | n/a | `Yes` |
 | storage_count | the number of storage servers for the cloud exadata infrastructure | `number` | n/a | No |
-| groups | list of azure AD groups that will manage objects inside the bucket | `list(string)` | n/a | No |
+| groups | list of azure AD groups that will manage objects inside the bucket | `list(string)` | `[]` | No |
 | subscription_id | the ocid of the subscription with which resource needs to be associated with | `string` | n/a | No |
 | compartment | compartment name that will be used for policy creation | `string` | n/a | No |
-| enable_group_access | enables the policy creation. If true the groups var should have a least one value | `bool` | `true` | No |
 
 # Object variables for blocks
 

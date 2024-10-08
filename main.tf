@@ -56,7 +56,7 @@ resource "oci_identity_policy" "exadata_cluster_infrastructure_policy" {
   depends_on = [oci_database_cloud_exadata_infrastructure.exadata_infrastructure]
   for_each = {
     for group in var.groups : group => group
-    if var.enable_group_access && var.groups != []
+    if var.groups != [] && var.compartment != null
   }
   compartment_id = var.compartment_id
   name           = "policy_${var.display_name}"
