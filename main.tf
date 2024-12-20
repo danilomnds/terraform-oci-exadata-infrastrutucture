@@ -41,7 +41,8 @@ resource "oci_database_cloud_exadata_infrastructure" "exadata_infrastructure" {
   storage_count = var.storage_count
   lifecycle {
     ignore_changes = [
-      defined_tags["IT.create_date"]
+      # due to a bug on customer_contacts that changes the email order, the block was added on ignore_changes
+      defined_tags["IT.create_date"], customer_contacts
     ]
   }
   timeouts {
@@ -56,12 +57,12 @@ resource "oci_identity_policy" "exadata_cluster_infrastructure_policy" {
   depends_on = [oci_database_cloud_exadata_infrastructure.exadata_infrastructure]
   for_each = {
     for group in var.groups : group => group
-    if var.enable_group_access && var.groups != []
+    if var.groups != [] && var.compartment != null
   }
   compartment_id = var.compartment_id
   name           = "policy_${var.display_name}"
   description    = "allow one or more groups to read the exadata infrastructure"
   statements = [
-    "Allow group ${each.value} to read exadata-infrastructures in compartment ${var.compartment}"
+    "Allow group ${each.value} to read database-family in compartment ${var.compartment}"
   ]
 }
